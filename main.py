@@ -32,7 +32,7 @@ def get_project_links(driver):
         soup = BeautifulSoup(driver.page_source, "html.parser")
         table = soup.find("table", id="tblList")
         if not table:
-            print("❌ Table still not found after rendering.")
+            print("Table still not found after rendering.")
             return []
 
         rows = table.find_all("tr")[1:7]  # Skip header and get top 6 rows
@@ -47,7 +47,7 @@ def get_project_links(driver):
         return links
 
     except Exception as e:
-        print(f"❌ Error clicking search or loading table: {e}")
+        print(f"Error clicking search or loading table: {e}")
         return []
 
 def get_project_details(driver, url):
@@ -68,20 +68,20 @@ def get_project_details(driver, url):
     }
 
 def main():
-    print("🚀 Starting Selenium browser...")
+    print("Starting Selenium browser...")
     options = Options()
     options.add_argument("--headless")  # Run without opening a browser
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-    print("📥 Getting project list...")
+    print("Getting project list...")
     links = get_project_links(driver)
 
     if not links:
-        print("❌ No project links found. Exiting.")
+        print("No project links found.")
         driver.quit()
         return
 
-    print("🔍 Scraping project details...")
+    print("Scraping project details...")
     all_data = []
     for url in links:
         print(f"🔗 Scraping: {url}")
