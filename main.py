@@ -13,22 +13,22 @@ def get_project_links(driver):
     driver.get("https://rera.odisha.gov.in/projects/project-list")
 
     try:
-        # ✅ Wait for Search button and click it via JavaScript
+        #  Wait for Search button and click it via JavaScript
         search_button = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.ID, "btnSearch"))
         )
         driver.execute_script("arguments[0].click();", search_button)
-        print("✅ Clicked search button.")
+        print(" Clicked search button.")
 
         time.sleep(5)  # Allow time for results to load
 
-        # ✅ Wait for the table to be present
+        # Wait for the table to be present
         WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.ID, "tblList"))
         )
-        print("✅ Table detected.")
+        print("Table detected.")
 
-        # ✅ Parse the rendered page source using BeautifulSoup
+        # Parse the rendered page source using BeautifulSoup
         soup = BeautifulSoup(driver.page_source, "html.parser")
         table = soup.find("table", id="tblList")
         if not table:
@@ -90,10 +90,10 @@ def main():
 
     driver.quit()
 
-    # ✅ Save to CSV
+    #Save to CSV
     df = pd.DataFrame(all_data)
     df.to_csv("rera_projects.csv", index=False)
-    print("✅ Data saved to rera_projects.csv")
+    print("Data saved to rera_projects.csv")
 
 if __name__ == "__main__":
     main()
